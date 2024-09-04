@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "words" INTEGER NOT NULL DEFAULT 0;
