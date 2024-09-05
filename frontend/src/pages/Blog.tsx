@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { AppBar } from "../components/AppBar";
-import { TipTap } from "../components/Tiptap";
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { useParams } from "react-router-dom";
@@ -10,8 +9,9 @@ import { BlogSkeleton } from "./Skeletons/BlogSkeleton";
 import { motion} from "framer-motion"
 import { useFormattedDate } from "../hooks/useFormattedDate";
 import {UpdatePostType, updatePostInput} from "@eswar-pranav-nadh/common";
+import { TipTap } from "../components/Tiptap"
 
-export const Blog = () => {
+const Blog = () => {
 
   const { id } = useParams();
   const [title, setTitle] = useState("");
@@ -183,3 +183,5 @@ export const Blog = () => {
     </div>
   );
 };
+
+export default Blog;

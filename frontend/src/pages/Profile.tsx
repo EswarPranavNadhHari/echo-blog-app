@@ -18,7 +18,7 @@ interface blogType {
     }
 }
 
-export const Profile = () => {
+const Profile = () => {
 
     const { loading, blogs } = useBlogs("profile");
     const navigate = useNavigate();
@@ -56,3 +56,5 @@ export const Profile = () => {
         </div>
     </div>
 }
+
+export default Profile;

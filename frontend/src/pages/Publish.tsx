@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { AppBar } from "../components/AppBar";
-import { TipTap } from "../components/Tiptap";
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import { useFormattedDate } from "../hooks/useFormattedDate";
 import { CreatePostType, createPostInput } from "@eswar-pranav-nadh/common";
+import { TipTap } from "../components/Tiptap"
 
-export const Publish = () => {
+const Publish = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -91,3 +91,6 @@ export const Publish = () => {
     </div>
   );
 };
+
+
+export default Publish;

@@ -17,7 +17,7 @@ interface blogType {
     }
 }
 
-export const Blogs = () => {
+const Blogs = () => {
 
     const { loading, blogs } = useBlogs("home");
     const navigate = useNavigate();
@@ -47,3 +47,5 @@ export const Blogs = () => {
         </div>
     </div>
 }
+
+export default Blogs;
