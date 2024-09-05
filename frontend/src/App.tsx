@@ -1,13 +1,15 @@
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import { Signup } from './pages/Signup';
-import { Signin } from './pages/Signin';
-import { Blog } from './pages/Blog';
-import { Blogs } from './pages/Blogs';
-import { Publish } from './pages/Publish';
-import { Profile } from './pages/Profile';
-import { Home } from './pages/Home';
+import { lazy } from "react";
 import { AnimatePresence } from "framer-motion";
 import ProtectedRoute from './components/ProtectedRoute';
+import { Home } from './pages/Home';
+import Blogs from './pages/Blogs';
+
+const Signup = lazy(() => import('./pages/Signup'));
+const Signin = lazy(() => import('./pages/Signin'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Publish = lazy(() => import('./pages/Publish'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 function App() {
   return (
