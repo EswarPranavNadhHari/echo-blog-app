@@ -6,6 +6,8 @@ import Youtube from '@tiptap/extension-youtube';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 import CharacterCount from '@tiptap/extension-character-count';
 import Placeholder from '@tiptap/extension-placeholder';
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Blockquote from '@tiptap/extension-blockquote';
@@ -38,7 +40,7 @@ import plaintext from 'highlight.js/lib/languages/plaintext'; // Plaintext
 // Or any other theme you prefer
 import {
   FaYoutube, FaStrikethrough, FaBold, FaItalic, FaCode, FaAlignCenter, FaAlignLeft,
-  FaAlignRight, FaListUl, FaImage, FaQuoteLeft, FaAlignJustify,
+  FaAlignRight, FaListUl, FaImage, FaQuoteLeft, FaListOl, FaAlignJustify,
 } from 'react-icons/fa';
 
 const lowlight = createLowlight();
@@ -205,6 +207,14 @@ function MenuBar() {
         </button>
         <button
           type="button"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          className={`${editor.isActive('bulletList') ? 'bg-violet-700 text-white' : 'bg-gray-100 text-black'
+          } border rounded-xl py-1 px-2 hover:bg-violet-500 font-semibold border-none`}
+        >
+          <FaListOl />
+        </button>
+        <button
+          type="button"
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           className={`${editor.isActive('heading', { level: 1 }) ? 'bg-violet-700 text-white' : 'bg-gray-100 text-black'
           } border rounded-xl py-1 px-2 hover:bg-violet-500 disabled:bg-gray-200 disabled:text-gray-400 font-semibold border-none`}
@@ -268,6 +278,17 @@ const CustomCode = Code.extend({
   },
 });
 
+const CustomOrderedList = OrderedList.extend({
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      HTMLAttributes: {
+        class: 'text-secondary',
+      },
+    };
+  },
+});
+
 const extensions = [
   StarterKit.configure({
     code: false,
@@ -278,10 +299,7 @@ const extensions = [
       keepMarks: true,
       keepAttributes: false,
     },
-    orderedList: {
-      keepMarks: true,
-      keepAttributes: false,
-    },
+    orderedList: false,
   }),
   CustomBold,
   CharacterCount,
@@ -297,7 +315,11 @@ const extensions = [
     },
     languageClassPrefix: 'language-',
   }),
-  Image,
+  Image.configure({
+    HTMLAttributes: {
+      class: 'max-h-96 max-w-[500px]',
+    },
+  }),
   Youtube.configure({
     width: 480,
     height: 320,
@@ -310,7 +332,7 @@ const extensions = [
   }),
   CustomBlockquote,
   CustomCode,
-  // CustomCodeBlock,
+  CustomOrderedList,
 ];
 
 const editorProps = {

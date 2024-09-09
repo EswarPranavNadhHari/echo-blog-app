@@ -89,7 +89,7 @@ export default function BlogCard({
         </div>
         {image && (
         <div className="flex items-center justify-end overflow-hidden col-span-3 md:col-span-1">
-          <img className="rounded-sm w-20 md:w-48" src={image} alt="img" />
+          <img className="rounded-sm max-w-20 md:max-w-48 max-h-14 md:max-h-32" src={image} alt="img" />
         </div>
         ) }
       </div>
