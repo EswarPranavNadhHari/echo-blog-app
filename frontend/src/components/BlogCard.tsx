@@ -56,33 +56,33 @@ export default function BlogCard({
 
   return (
     <div role="button" tabIndex={0} onClick={onClick} onKeyDown={onClick} className="relative">
-      <div className="grid grid-cols-10 md:grid-cols-5">
+      <div className="grid grid-cols-10 md:grid-cols-5 bg-primary">
         <div className="col-span-7 md:col-span-4 pb-7">
           <div className="flex items-center pt-5 pb-3 gap-2">
-            <div className="relative inline-flex items-center justify-center w-10 h-10 lg:w-7 lg:h-7 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 select-none">
-              <span className="font-medium text-gray-600 dark:text-gray-300 text-xs">{author[0]}</span>
+            <div className="relative inline-flex items-center justify-center w-10 h-10 lg:w-7 lg:h-7 overflow-hidden rounded-full bg-gray-600 select-none">
+              <span className="font-medium text-gray-300 text-xs">{author[0]}</span>
             </div>
-            <div className="font-euclid font-medium text-sm">
+            <div className="font-euclid font-medium text-sm text-secondary">
               {author}
             </div>
-            <div className="font-bold">
+            <div className="font-bold text-secondary">
               .
             </div>
-            <div className="font-euclid text-sm font-medium text-textGray">
+            <div className="font-euclid text-sm font-medium text-accent">
               {date}
             </div>
           </div>
-          <div className="leading-tight font-euclid font-bold text-xl md:text-2xl pt-1 pb-2">
+          <div className="leading-tight font-euclid font-bold text-xl md:text-2xl pt-1 pb-2 text-secondary">
             {title}
           </div>
-          <div className="tracking-normal leading-normal font-euclid font-medium text-textGray text-base pb-3">
+          <div className="tracking-normal leading-normal font-euclid font-medium text-accent text-base pb-3">
             {description.length > 50 ? `${description.slice(0, 50)}...` : description}
           </div>
           <div className="flex gap-2 items-center">
             <div>
               <img src={starLogo} className="logo" alt="" />
             </div>
-            <div className="text-sm font-medium text-textGray">
+            <div className="text-sm font-medium text-accent">
               {`${Math.ceil(words / 150)} min read`}
             </div>
           </div>
@@ -102,12 +102,12 @@ export default function BlogCard({
           onClick={handleToggleSelect}
           aria-label={isSelected ? 'Deselect' : 'Select'}
         >
-          <motion.div layout className="bg-white w-6 h-6 rounded-full shadow-md" />
+          <motion.div layout className="bg-primary w-6 h-6 rounded-full shadow-md" />
         </div>
       ) : (
         <PublishButton isSelected={isSelected} handleToggleSelect={handleToggleSelect} />
       ))}
-      <hr />
+      <hr className="border-t-1 border-tertiary" />
     </div>
   );
 }

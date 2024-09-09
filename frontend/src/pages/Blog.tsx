@@ -21,46 +21,57 @@ function Blog() {
   const [words, setWords] = useState(0);
   const [isEditable, setIsEditable] = useState(false);
   const [postMine, setPostMine] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState<string>('');
   const date = useFormattedDate();
 
   const token = localStorage.getItem('token');
-  let userId = '';
 
-  if (token) {
-    try {
-      const decodedToken = jwt.decode(token);
-      if (decodedToken && typeof decodedToken === 'object') {
-        userId = decodedToken.id;
+  useEffect(() => {
+    // Decode token and set authentication state
+    if (token) {
+      try {
+        const decodedToken = jwt.decode(token);
+        if (decodedToken && typeof decodedToken === 'object' && decodedToken.id) {
+          setUserId(decodedToken.id);
+          setIsAuth(true);
+        }
+      } catch (error) {
+        console.error('Invalid token:', error);
       }
-    } catch (error) {
-      console.error('Invalid token:', error);
     }
-  }
+  }, [token]);
 
   useEffect(() => {
     if (!id) return;
 
-    axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      const { blog } = response.data;
-      setContent(blog.content);
-      setDescription(blog.description);
-      setTitle(blog.title);
-      setImage(blog.image);
-      setAuthor(blog.author.name);
-      if (userId === blog.authorId) {
-        setPostMine(true);
-      }
-      setLoading(false);
-    })
-      .catch((e) => {
+    const fetchBlogData = async () => {
+      try {
+        const url = isAuth
+          ? `${BACKEND_URL}/api/v1/blog/${id}`
+          : `${BACKEND_URL}/api/v1/${id}`;
+        const headers = isAuth
+          ? { Authorization: `Bearer ${token}` }
+          : {};
+        const response = await axios.get(url, { headers });
+
+        const { blog } = response.data;
+        setContent(blog.content);
+        setDescription(blog.description);
+        setTitle(blog.title);
+        setImage(blog.image);
+        setAuthor(blog.author.name);
+        setPostMine(userId === blog.authorId);
+      } catch (e) {
         console.error('Error fetching blog:', e);
-      });
-  }, [id, token, userId]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogData();
+  }, [id, isAuth, token, userId]);
 
   if (loading) {
     return (
@@ -108,15 +119,12 @@ function Blog() {
   };
 
   return (
-    <div className="h-dvh no-scrollbar overflow-auto ">
-
+    <div className="h-dvh no-scrollbar overflow-auto text-secondary bg-primary">
       <AppBar type="blog" />
       {postMine && (
         isEditable ? (
           <motion.button
             whileHover={{ scale: 1.1 }}
-            onHoverStart={() => { }}
-            onHoverEnd={() => { }}
             className="font-euclid font-semibold text-md px-3 py-1 bg-green-500 rounded-3xl fixed top-4 right-20 z-20"
             onClick={handlePublish}
           >
@@ -125,8 +133,6 @@ function Blog() {
         ) : (
           <motion.button
             whileHover={{ scale: 1.1 }}
-            onHoverStart={() => { }}
-            onHoverEnd={() => { }}
             className="font-euclid font-semibold text-md px-3 py-1 bg-green-500 rounded-3xl fixed top-4 right-20 z-20"
             onClick={handleEdit}
           >
@@ -134,7 +140,7 @@ function Blog() {
           </motion.button>
         )
       )}
-      <div className="w-[90%] md:w-[80%] m-auto font-euclid mt-10 items-start">
+      <div className="w-[90%] md:w-[80%] m-auto font-euclid mt-10 items-start text-secondary">
         {isEditable ? (
           <div>
             <textarea
@@ -156,8 +162,6 @@ function Blog() {
             </div>
             <textarea
               value={description}
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
               className="text-xl w-full pt-5 h-auto resize-none focus:outline-none bg-transparent italic"
               autoCapitalize="true"
               placeholder="Description"
@@ -191,8 +195,7 @@ function Blog() {
             </div>
           </div>
         )}
-
-        <hr className="mt-5" />
+        <hr className="mt-5 border-t-tertiary" />
       </div>
       <div className="m-auto font-euclid mt-5">
         <TipTap

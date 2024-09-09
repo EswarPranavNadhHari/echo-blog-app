@@ -17,13 +17,16 @@ interface BlogType {
   }
 }
 
+const token = localStorage.getItem('token');
+const auth = !!token;
+
 function Blogs() {
-  const { loading, blogs } = useBlogs('home');
+  const { loading, blogs } = useBlogs('home', auth);
   const navigate = useNavigate();
 
   if (loading) {
     return (
-      <div className="h-screen no-scrollbar overflow-auto">
+      <div className="h-screen no-scrollbar overflow-auto bg-primary">
         <AppBar type="home" />
         <BlogsSkeleton />
       </div>
@@ -35,7 +38,7 @@ function Blogs() {
   };
 
   return (
-    <div className="h-screen no-scrollbar overflow-auto">
+    <div className="h-screen no-scrollbar overflow-auto bg-primary">
       <AppBar type="home" />
       <div className="flex flex-col items-center">
         <div className="w-[90%] lg:w-[80%] hover:cursor-pointer">

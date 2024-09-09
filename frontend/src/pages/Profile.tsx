@@ -19,12 +19,12 @@ interface BlogType {
 }
 
 function Profile() {
-  const { loading, blogs } = useBlogs('profile');
+  const { loading, blogs } = useBlogs('profile', true);
   const navigate = useNavigate();
 
   if (loading) {
     return (
-      <div className="h-screen no-scrollbar overflow-auto">
+      <div className="h-screen no-scrollbar overflow-auto bg-primary">
         <AppBar type="home" />
         <BlogsSkeleton />
       </div>
@@ -37,7 +37,7 @@ function Profile() {
 
   if (blogs.length === 0) {
     return (
-      <div className="flex flex-col h-dvh">
+      <div className="flex flex-col h-dvh bg-primary">
         <AppBar type="home" />
         <div className="flex flex-grow justify-center items-center font-euclid">
           No Content
@@ -47,7 +47,7 @@ function Profile() {
   }
 
   return (
-    <div className="h-screen no-scrollbar overflow-auto">
+    <div className="h-screen no-scrollbar overflow-auto bg-primary">
       <AppBar type="home" />
       <div className="flex flex-col items-center">
         <div className="w-[90%] lg:w-[80%] hover:cursor-pointer">

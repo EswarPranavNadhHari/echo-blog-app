@@ -51,10 +51,10 @@ function Publish() {
   };
 
   return (
-    <div className="h-dvh no-scrollbar overflow-auto">
+    <div className="h-dvh no-scrollbar overflow-auto bg-primary">
       <AppBar type="blog" />
       <motion.button whileHover={{ scale: 1.1 }} onHoverStart={() => {}} onHoverEnd={() => {}} className="font-euclid font-semibold text-md px-3 py-1 bg-green-500 rounded-3xl fixed top-4 right-20 z-20" onClick={handlePublish}>Publish</motion.button>
-      <div className="w-[90%] md:w-[80%] m-auto font-euclid mt-10 items-start">
+      <div className="w-[90%] md:w-[80%] m-auto font-euclid mt-10 items-start text-secondary">
         <textarea
           value={title}
           // eslint-disable-next-line jsx-a11y/no-autofocus

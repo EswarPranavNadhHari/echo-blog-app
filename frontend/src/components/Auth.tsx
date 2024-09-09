@@ -11,10 +11,10 @@ function Helper({
 }: HelperType) {
   return (
     <div>
-      <div className="font-medium pb-1 pt-2">
+      <div className="font-medium pb-1 pt-2 ">
         <label htmlFor={label}>{label}</label>
       </div>
-      <input className="w-full rounded-xl border-2 p-2" type={type} required placeholder={placeholder} id={label} onChange={onChange} />
+      <input className="w-full border-[1px] border-accent rounded-md bg-primary px-3 py-2 text-secondary shadow-sm focus:border-primary focus:ring-primary" type={type} required placeholder={placeholder} id={label} onChange={onChange} />
     </div>
   );
 }
@@ -37,7 +37,7 @@ export default function Auth({ type }: { type: 'signin' | 'signup' }) {
     setIsDarkened(true);
     try {
       const inputs = type === 'signup'
-      // @ts-expect-error: Unreachable code error
+        // @ts-expect-error: Unreachable code error
         ? { name: signInputs.name, email: signInputs.email, password: signInputs.password }
         : { email: signInputs.email, password: signInputs.password };
 
@@ -63,7 +63,7 @@ export default function Auth({ type }: { type: 'signin' | 'signup' }) {
   }
 
   return (
-    <div className="h-dvh w-full flex flex-col justify-center items-center">
+    <div className="h-dvh w-full flex flex-col justify-center items-center ">
       <div className="text-3xl font-bold">
         {type === 'signup' ? 'Create an account' : 'Login'}
       </div>
@@ -82,18 +82,18 @@ export default function Auth({ type }: { type: 'signin' | 'signup' }) {
           </span>
         )}
       </div>
-      <div className="w-1/2 py-5">
+      <div className="w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] py-5">
         {type === 'signup' && (
-        <Helper
-          type="text"
-          placeholder="Enter your username"
-          label="Username"
-          onChange={(e) => {
-            setSignInputs((c) => ({
-              ...c, name: e.target.value,
-            }));
-          }}
-        />
+          <Helper
+            type="text"
+            placeholder="Enter your username"
+            label="Username"
+            onChange={(e) => {
+              setSignInputs((c) => ({
+                ...c, name: e.target.value,
+              }));
+            }}
+          />
         )}
         <Helper
           type="email"
@@ -115,8 +115,14 @@ export default function Auth({ type }: { type: 'signin' | 'signup' }) {
             }));
           }}
         />
-        <div className={`pt-4 ${isDarkened ? 'opacity-70 cursor-none' : 'cursor-pointer opacity-100'}`}>
-          <button type="submit" className="border p-2 w-full rounded-xl text-white bg-black" onClick={isDarkened ? undefined : sendRequest}>{type === 'signup' ? 'sign up' : 'sign in'}</button>
+        <div className={`flex justify-center pt-4 ${isDarkened ? 'opacity-70 cursor-none' : 'cursor-pointer opacity-100'}`}>
+          <button
+            onClick={isDarkened ? undefined : sendRequest}
+            type="button"
+            className="mt-4 border-2 w-full shadow-xl bg-secondary text-primary hover:opacity-80 transition-all duration-200 outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:ring-offset-0 font-medium rounded-md text-sm px-5 py-2.5"
+          >
+            {type === 'signup' ? 'sign up' : 'sign in'}
+          </button>
         </div>
       </div>
     </div>

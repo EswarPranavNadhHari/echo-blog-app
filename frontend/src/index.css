@@ -4,3 +4,99 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: #fff;
+  --color-secondary: #000;
+  --color-tertiary: #e5e7eb;
+  --color-accent: #6b6b6b;
+  --color-highlight: #f1f2f4;
+  
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dark {
+  --color-primary: #121212;
+  --color-secondary: #fff;
+  --color-tertiary: #414143;
+  --color-accent: #9d9d9d;
+  --color-highlight: #2b2d30;
+  
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+pre {
+  background: #1E1E1E;
+  color: #D4D4D4;
+  font-family: 'JetBrainsMono', monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+
+  code {
+    color: inherit;
+    padding: 0;
+    background: none;
+    font-size:   
+ 0.8rem;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color:   
+ #667580;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color:   
+ #FFB86C;
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: #96C857;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #E06C75;
+  }
+
+  .hljs-title,
+  .hljs-section {
+    color: #61AFEF;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #C678DD;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+    color: #D4D4D4;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+    color: #FFB86C;
+  }
+}
