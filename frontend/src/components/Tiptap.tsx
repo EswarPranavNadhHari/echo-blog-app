@@ -6,8 +6,7 @@ import Youtube from '@tiptap/extension-youtube';
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 import CharacterCount from '@tiptap/extension-character-count';
 import Placeholder from '@tiptap/extension-placeholder';
-import ListItem from '@tiptap/extension-list-item'
-import OrderedList from '@tiptap/extension-ordered-list'
+import OrderedList from '@tiptap/extension-ordered-list';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Blockquote from '@tiptap/extension-blockquote';
